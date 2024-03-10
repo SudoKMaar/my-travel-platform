@@ -60,11 +60,11 @@ const AdminLoginPage = () => {
                 width={80}
                 className="cursor-pointer"
               />
-              <h1 className="text-xl uppercase font-medium italic text-white">
+              <h1 className="text-2xl sm:text-3xl uppercase font-medium italic text-white text-center">
                 My Travel Platform
               </h1>
             </Link>
-            <p className="text-white/80 text-sm">Admin Login</p>
+            <p className="text-white/80 text-sm sm:text-xl">Admin Login</p>
           </div>
         </CardHeader>
         <CardContent>
