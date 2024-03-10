@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +23,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { apiClient } from "@/lib/api-client";
+import { ADMIN_API_ROUTES } from "@/routes";
+import { useAppStore } from "@/store";
 
 const SignInSchema = z.object({
   email: z.string().email({
@@ -33,6 +37,8 @@ const SignInSchema = z.object({
 });
 
 const AdminLoginPage = () => {
+  const router = useRouter();
+  const { setUserInfo } = useAppStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -43,9 +49,17 @@ const AdminLoginPage = () => {
   });
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     setIsSubmitting(true);
-    //handle submit
+    const response = await apiClient.post(ADMIN_API_ROUTES.SIGNIN, {
+      email: values.email,
+      password: values.password,
+    });
+    if (response.data.userInfo) {
+      setUserInfo(response.data.userInfo);
+      router.push("/admin");
+    }
     setIsSubmitting(false);
   };
+
   return (
     <div className="h-[100vh] w-full flex items-center justify-center bg-cover bg-center bg-no-repeat bg-[url('/bg.webp')]">
       <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-2xl"></div>
