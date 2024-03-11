@@ -26,6 +26,7 @@ import {
 import { apiClient } from "@/lib/api-client";
 import { ADMIN_API_ROUTES } from "@/routes";
 import { useAppStore } from "@/store";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignInSchema = z.object({
   email: z.string().email({
@@ -37,6 +38,7 @@ const SignInSchema = z.object({
 });
 
 const AdminLoginPage = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const { setUserInfo } = useAppStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,13 +51,52 @@ const AdminLoginPage = () => {
   });
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     setIsSubmitting(true);
-    const response = await apiClient.post(ADMIN_API_ROUTES.SIGNIN, {
-      email: values.email,
-      password: values.password,
-    });
-    if (response.data.userInfo) {
-      setUserInfo(response.data.userInfo);
-      router.push("/admin");
+    try {
+      const response = await apiClient.post(ADMIN_API_ROUTES.SIGNIN, {
+        email: values.email,
+        password: values.password,
+      });
+      if (response.data.userInfo) {
+        setUserInfo(response.data.userInfo);
+        router.push("/admin");
+      }
+    } catch (error: any) {
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            toast({
+              variant: "destructive",
+              title: "Email and Password Required.",
+              description: "Enter email and password",
+            });
+            break;
+          case 404:
+            toast({
+              variant: "destructive",
+              title: "Invalid Email or Password",
+              description: "Enter correct email and password",
+            });
+            break;
+          default:
+            toast({
+              variant: "destructive",
+              title: "Error",
+              description: "An unexpected error occurred.",
+            });
+        }
+      } else if (error.request) {
+        toast({
+          variant: "destructive",
+          title: "No Response",
+          description: "The request was made but no response was received.",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An unexpected error occurred.",
+        });
+      }
     }
     setIsSubmitting(false);
   };

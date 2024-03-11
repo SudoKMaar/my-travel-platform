@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Admin Sign In",
@@ -10,5 +11,10 @@ export default function AdminSignInLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <section>
+      {children}
+      <Toaster />
+    </section>
+  );
 }
