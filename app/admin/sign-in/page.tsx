@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
@@ -23,7 +24,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { apiClient } from "@/lib/api-client";
 import { ADMIN_API_ROUTES } from "@/routes";
 import { useAppStore } from "@/store";
 import { useToast } from "@/components/ui/use-toast";
@@ -52,7 +52,7 @@ const AdminLoginPage = () => {
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     setIsSubmitting(true);
     try {
-      const response = await apiClient.post(ADMIN_API_ROUTES.SIGNIN, {
+      const response = await axios.post(ADMIN_API_ROUTES.SIGNIN, {
         email: values.email,
         password: values.password,
       });

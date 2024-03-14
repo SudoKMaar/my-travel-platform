@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { ADMIN_API_ROUTES } from "@/routes";
-import { apiClient } from "@/lib/api-client";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const ScrapingQueue = () => {
@@ -8,7 +8,7 @@ const ScrapingQueue = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await apiClient.get(ADMIN_API_ROUTES.JOB_DETAILS);
+      const data = await axios.get(ADMIN_API_ROUTES.JOB_DETAILS);
       setOngoingJobs(data.data.onGoingJobs);
     };
     const interval = setInterval(() => getData(), 3000);

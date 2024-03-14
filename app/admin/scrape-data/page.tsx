@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { apiClient } from "@/lib/api-client";
 import { ADMIN_API_ROUTES } from "@/routes";
 import ScrapingQueue from "@/components/scraping-queue";
 import CurrentlyScrapingTable from "@/components/current-scrapping-table";
@@ -27,7 +27,7 @@ const ScrapeTrips = () => {
   };
 
   const startScraping = async () => {
-    await apiClient.post(ADMIN_API_ROUTES.CREATE_JOB, {
+    await axios.post(ADMIN_API_ROUTES.CREATE_JOB, {
       url:
         "https://packages.yatra.com/holidays/intl/search.htm?destination=" +
         selectedCity,
@@ -37,7 +37,7 @@ const ScrapeTrips = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await apiClient.get(ADMIN_API_ROUTES.JOB_DETAILS);
+      const data = await axios.get(ADMIN_API_ROUTES.JOB_DETAILS);
       setJobs(data.data.jobs);
     };
     const interval = setInterval(() => getData(), 3000);
