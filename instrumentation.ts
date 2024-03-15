@@ -26,7 +26,7 @@ export async function register() {
             await page.goto(job.data.url, { timeout: 20000 });
             console.log("Navigated! Scraping page content...");
             const packages = await startLocationScraping(page);
-            console.log({ packages });
+            // console.log({ packages });
             await prisma.jobs.update({
               where: { id: job.data.id },
               data: { isComplete: true, status: "complete" },

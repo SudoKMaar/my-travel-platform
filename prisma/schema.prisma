@@ -30,7 +30,8 @@ model Jobs {
 }
 
 model Trips {
-  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  sno                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                   String   @unique
   name                 String
   nights               Int
   days                 Int
