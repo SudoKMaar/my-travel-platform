@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { startLocationScraping } from "@/scrapper/location-scrapping";
+import { startPackageScraping } from "@/scrapper/package-scrapping";
 
 const SBR_WS_ENDPOINT = process.env.SBR_WS_ENDPOINT;
 
@@ -47,7 +48,24 @@ export async function register() {
               }
             }
           } else if (job.data.jobType.type === "package") {
-            console.log(job.data);
+            const alreadyScrapped = await prisma.trips.findUnique({
+              where: { id: job.data.packageDetails.id },
+            });
+            if (!alreadyScrapped) {
+              console.log("Connected! Navigating to " + job.data.url);
+              await page.goto(job.data.url, { timeout: 120000 });
+              console.log("Navigated! Scraping page content...");
+              const pkg = await startPackageScraping(
+                page,
+                job.data.packageDetails
+              );
+              // @ts-ignore
+              await prisma.trips.create({ data: pkg });
+              await prisma.jobs.update({
+                where: { id: job.data.id },
+                data: { isComplete: true, status: "complete" },
+              });
+            }
           }
         } catch (error) {
           console.log(error);

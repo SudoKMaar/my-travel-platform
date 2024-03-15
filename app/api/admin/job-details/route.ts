@@ -4,7 +4,10 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const jobs = await prisma.jobs.findMany({ orderBy: { createdAt: "desc" } });
+    const jobs = await prisma.jobs.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 30,
+    });
     const onGoingJobs = await prisma.jobs.findMany({
       where: { isComplete: false },
     });
