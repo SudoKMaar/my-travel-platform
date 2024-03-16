@@ -7,7 +7,7 @@ export default function MTPHomePageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="relative flex flex-col" id="app-container">
+    <section className="relative flex flex-col">
       <main className="flex flex-col relative">
         <Navbar />
         <section className=" h-full flex-1 ">{children}</section>

@@ -1,5 +1,9 @@
+import Search from "@/components/search";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <main className="max-w-[100vw] overflow-x-hidden">
+      <Search />
+    </main>
   );
 }
