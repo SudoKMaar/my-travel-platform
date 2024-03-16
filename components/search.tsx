@@ -46,12 +46,12 @@ const Search = () => {
       </div>
       <div className="absolute h-[75vh] sm:h-[50vh] w-[90vw] sm:w-[80vw] md:w-[75vw] lg:w-[60vw] xl:w-[50vw] flex flex-col gap-5 m-auto">
         <div className="text-white text-center flex flex-col gap-2">
-          <h3 className="text-base sm:text-xl lg:text-2xl font-bold">
+          <h2 className="text-base sm:text-xl lg:text-2xl font-bold">
             Best Tours picked specially for you!
-          </h3>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-            Explore the exotic world.
           </h2>
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
+            Explore the exotic world.
+          </h3>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-4 rounded-xl">
           <Input
@@ -90,7 +90,7 @@ const Search = () => {
                     <ListboxItem
                       key={city}
                       color="danger"
-                      className="text-white "
+                      className="text-white"
                     >
                       {city}
                     </ListboxItem>
@@ -112,7 +112,7 @@ const Search = () => {
           <Button
             type="submit"
             size="lg"
-            className="h-full cursor-pointer col-span-2 sm:col-span-1 p-2 bg-rose-500 hover:bg-rose-600 rounded-xl text-base"
+            className="h-full cursor-pointer col-span-2 sm:col-span-1 p-2 bg-rose-500 hover:bg-rose-600 rounded-xl text-base text-white font-medium"
             onClick={handleSearch}
           >
             Search
