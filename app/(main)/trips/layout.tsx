@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Trips",
@@ -11,5 +12,9 @@ export default function TripsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="mt-[10vh]">{children}</div>;
+  return (
+    <div className="mt-[10vh]">
+      <Suspense fallback="">{children}</Suspense>
+    </div>
+  );
 }
