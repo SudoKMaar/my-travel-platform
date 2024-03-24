@@ -22,7 +22,7 @@ const Navbar = () => {
   const { userInfo } = useAppStore();
   const routesWithImages = ["/", "/search-flights", "/search-hotels"];
   return (
-    <div className="min-h-[10vh] w-full bg-[#0E1428] bg-opacity-25 text-white relative z-10">
+    <div className="min-h-[10vh] w-full bg-[#0E1428] bg-opacity-25 text-white fixed z-10">
       {!routesWithImages.includes(pathname) && (
         <>
           <div className="fixed left-0 top-0 h-[10vh] w-[100vw] overflow-hidden z-0">
@@ -44,7 +44,7 @@ const Navbar = () => {
           ></div>
         </>
       )}
-      <div className="z-10 w-full flex items-center justify-around">
+      <div className="fixed z-10 w-full flex items-center justify-around">
         <div className="cursor-pointer flex flex-col items-center justify-start">
           <Link href="/">
             <div className="flex flex-row text-center">
@@ -99,7 +99,7 @@ const Navbar = () => {
                 <Button
                   color="secondary"
                   variant="default"
-                  className="text-white rounded-3xl bg-slate-600 hover:bg-rose-500"
+                  className="text-white rounded-3xl bg-rose-500 hover:bg-rose-600"
                 >
                   <LogIn className="w-5 h-5 mr-2" />
                   LogIn

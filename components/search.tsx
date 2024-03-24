@@ -40,11 +40,11 @@ const Search = () => {
   ];
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center">
+    <div className="min-h-[100vh] flex items-center justify-center">
       <div className="absolute left-0 top-0 h-[100vh] w-[100vw] max-w-[100vw] -z-5">
         <Image src="/bg.webp" fill alt="Search" />
       </div>
-      <div className="absolute h-[75vh] sm:h-[50vh] w-[90vw] sm:w-[80vw] md:w-[75vw] lg:w-[60vw] xl:w-[50vw] flex flex-col gap-5 m-auto">
+      <div className="absolute h-[55vh] sm:h-[50vh] w-[90vw] sm:w-[80vw] md:w-[75vw] lg:w-[60vw] xl:w-[50vw] flex flex-col gap-5 m-auto">
         <div className="text-white text-center flex flex-col gap-2">
           <h2 className="text-base sm:text-xl lg:text-2xl font-bold">
             Best Tours picked specially for you!

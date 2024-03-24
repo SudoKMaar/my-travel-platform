@@ -8,4 +8,6 @@ export const ADMIN_API_ROUTES = {
 
 export const USER_API_ROUTES = {
   GET_ALL_TRIPS: "/all-trips",
+  GET_CITY_TRIPS: "/city-trips",
+  TRIP_DATA: `${baseRoute}/trips`,
 };
