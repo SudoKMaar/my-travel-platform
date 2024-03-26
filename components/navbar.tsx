@@ -3,7 +3,19 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LogIn } from "lucide-react";
+import {
+  AppWindowIcon,
+  BusFront,
+  ClipboardList,
+  Hotel,
+  LogIn,
+  LogOut,
+  Menu,
+  Plane,
+  TicketCheck,
+  UserCog,
+  Users,
+} from "lucide-react";
 import { useAppStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SignInButton } from "@/components/signin-button";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -69,7 +82,10 @@ const Navbar = () => {
                 : "text-white hover:text-rose-500 hover:underline"
             }
           >
-            Tours
+            <div className="flex flex-col md:flex-row items-center justify-center">
+              <BusFront />
+              Tours
+            </div>
           </Link>
           <Link
             href="/search-flights"
@@ -79,7 +95,10 @@ const Navbar = () => {
                 : "text-white hover:text-rose-500 hover:underline"
             }
           >
-            Flights
+            <div className="flex flex-col md:flex-row items-center justify-center">
+              <Plane />
+              Flights
+            </div>
           </Link>
           <Link
             href="/search-hotels"
@@ -89,21 +108,75 @@ const Navbar = () => {
                 : "text-white hover:text-rose-500 hover:underline"
             }
           >
-            Hotels
+            <div className="flex flex-col md:flex-row items-center justify-center">
+              <Hotel />
+              Hotels
+            </div>
           </Link>
         </div>
         <div className="cursor-pointer flex flex-col items-center justify-end">
           {!userInfo && (
             <>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="sm:hidden" asChild>
+                  <Menu className="w-10 h-10 text-white" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 text-black border-black">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-row">
+                      <AppWindowIcon className="w-5 h-5 mr-1" />
+                      User Menu
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-black" />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      <Link href="/">
+                        <div className="flex flex-row">
+                          <BusFront className="w-5 h-5 mr-1" />
+                          Tours
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/search-flights">
+                        <div className="flex flex-row">
+                          <Plane className="w-5 h-5 mr-1" />
+                          Flights
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/search-hotels">
+                        <div className="flex flex-row">
+                          <Hotel className="w-5 h-5 mr-1" />
+                          Hotels
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator className="bg-black" />
+                  <DropdownMenuItem>
+                    <SignInButton mode="modal">
+                      <div className="flex flex-row">
+                        <LogIn className="w-5 h-5 mr-1" />
+                        Log In
+                      </div>
+                    </SignInButton>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <div className="hidden sm:flex">
-                <Button
-                  color="secondary"
-                  variant="default"
-                  className="text-white rounded-3xl bg-rose-500 hover:bg-rose-600"
-                >
-                  <LogIn className="w-5 h-5 mr-2" />
-                  LogIn
-                </Button>
+                <SignInButton mode="modal" asChild>
+                  <Button
+                    color="secondary"
+                    variant="default"
+                    className="text-white rounded-3xl bg-rose-500 hover:bg-rose-600"
+                  >
+                    <LogIn className="w-5 h-5 mr-2" />
+                    LogIn
+                  </Button>
+                </SignInButton>
               </div>
             </>
           )}
@@ -111,17 +184,22 @@ const Navbar = () => {
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar>
+                  <Avatar className="bg-black">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
-                      alt="@shadcn"
+                      alt="User Profile Picture"
                     />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>MTP</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  <DropdownMenuLabel>User Profile</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
+                <DropdownMenuContent className="w-56 text-black border-black">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-row">
+                      <Users className="w-5 h-5 mr-1" />
+                      User Profile
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-black" />
                   <DropdownMenuGroup>
                     <DropdownMenuItem className="h-14 gap-2">
                       <Link href="/profile">
@@ -130,22 +208,69 @@ const Navbar = () => {
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
+                  <DropdownMenuSeparator className="bg-black" />
+                  <DropdownMenuGroup className="sm:hidden">
                     <DropdownMenuItem>
-                      <Link href="/my-account">My Account </Link>
+                      <Link href="/">
+                        <div className="flex flex-row">
+                          <BusFront className="w-5 h-5 mr-1" />
+                          Tours
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Link href="/my-bookings">My Bookings </Link>
+                      <Link href="/search-flights">
+                        <div className="flex flex-row">
+                          <Plane className="w-5 h-5 mr-1" />
+                          Flights
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Link href="/my-wishlists">My Wishlists </Link>
+                      <Link href="/search-hotels">
+                        <div className="flex flex-row">
+                          <Hotel className="w-5 h-5 mr-1" />
+                          Hotels
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
+                  <DropdownMenuSeparator className="sm:hidden bg-black" />
                   <DropdownMenuGroup>
                     <DropdownMenuItem>
-                      <Link href="/logout">Logout </Link>
+                      <Link href="/my-account">
+                        <div className="flex flex-row">
+                          <UserCog className="w-5 h-5 mr-1" />
+                          My Account
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/my-bookings">
+                        <div className="flex flex-row">
+                          <TicketCheck className="w-5 h-5 mr-1" />
+                          My Bookings
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/my-wishlists">
+                        <div className="flex flex-row">
+                          <ClipboardList className="w-5 h-5 mr-1" />
+                          My Wishlists
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator className="bg-black" />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      <Link href="/logout">
+                        <div className="flex flex-row">
+                          <LogOut className="w-5 h-5 mr-1" />
+                          Logout
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>

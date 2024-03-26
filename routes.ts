@@ -11,3 +11,9 @@ export const USER_API_ROUTES = {
   GET_CITY_TRIPS: "/city-trips",
   TRIP_DATA: `${baseRoute}/trips`,
 };
+
+export const AUTH_API_ROUTES = {
+  SIGN_IN: `${baseRoute}/auth/sign-in`,
+  SIGN_UP: `${baseRoute}/auth/sign-up`,
+  ME: `${baseRoute}/auth/me`,
+};
