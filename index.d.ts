@@ -108,3 +108,15 @@ export interface TripType {
   packageIteniary: PackageIteniaryType[];
   scrapedOn: string;
 }
+
+export interface BookingType {
+  id: number;
+  createdAt: string;
+  date: string;
+  bookingType: string;
+  bookingTypeId: string;
+  userId: number;
+  totalAmount: number;
+  paymentIntent: string;
+  isCompleted: boolean;
+}
