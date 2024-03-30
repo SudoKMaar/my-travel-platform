@@ -19,7 +19,7 @@ export async function GET(request: Request) {
       }
       if (isValidJob.isComplete) {
         const flights = await prisma.flights.findMany({
-          where: { jobId: parseInt(jobId) },
+          where: { jobId: jobId },
         });
         return NextResponse.json(
           { msg: "Job Completed", flights, status: true },
