@@ -4,7 +4,7 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Payment Successful",
   description:
-    "“Payment successful! Your dream journey awaits. Thank you for choosing our services for your flight, hotel, and trip bookings. Your adventure begins now!",
+    "Payment successful! Your dream journey awaits. Thank you for choosing our services for your flight, hotel, and trip bookings. Your adventure begins now!",
 };
 
 export default function SuccessLayout({

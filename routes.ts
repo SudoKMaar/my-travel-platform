@@ -12,6 +12,8 @@ export const USER_API_ROUTES = {
   TRIP_DATA: `${baseRoute}/trips`,
   CREATE_BOOKING: `${baseRoute}/booking`,
   GET_USER_BOOKINGS: "/booking/get-bookings",
+  FLIGHT_SCRAPE: "/flights/scrape",
+  FLIGHT_SCRAPE_STATUS: "/flights/scrape-status",
 };
 
 export const AUTH_API_ROUTES = {

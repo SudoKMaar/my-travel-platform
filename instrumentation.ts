@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { startLocationScraping } from "@/scrapper/location-scrapping";
 import { startPackageScraping } from "@/scrapper/package-scrapping";
-
+import { startFlightScraping } from "@/scrapper/flights-scraping";
 const SBR_WS_ENDPOINT = process.env.SBR_WS_ENDPOINT;
 
 export async function register() {
@@ -64,6 +64,33 @@ export async function register() {
               await prisma.jobs.update({
                 where: { id: job.data.id },
                 data: { isComplete: true, status: "complete" },
+              });
+            }
+          } else if (job.data.jobType.type === "flight") {
+            console.log("in flight scraping");
+            console.log("Connected! Navigating to " + job.data.url);
+            await page.goto(job.data.url);
+            console.log("Navigated! Scraping page content...");
+            const flights = await startFlightScraping(page);
+
+            await prisma.jobs.update({
+              where: { id: job.data.id },
+              data: { isComplete: true, status: "complete" },
+            });
+
+            for (const flight of flights) {
+              await prisma.flights.create({
+                data: {
+                  name: flight.airlineName,
+                  logo: flight.airlineLogo,
+                  from: job.data.jobType.source,
+                  to: job.data.jobType.destination,
+                  departureTime: flight.departureTime,
+                  arrivalTime: flight.arrivalTime,
+                  duration: flight.flightDuration,
+                  price: flight.price,
+                  jobId: job.data.id,
+                },
               });
             }
           }

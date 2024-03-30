@@ -69,3 +69,17 @@ model Bookings {
   isCompleted   Boolean  @default(false)
   user          User     @relation(fields: [userId], references: [id])
 }
+
+model Flights {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  logo          String
+  from          String
+  to            String
+  departureTime String
+  arrivalTime   String
+  duration      String
+  scrappedOn    DateTime @default(now())
+  price         Int
+  jobId         String
+}

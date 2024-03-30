@@ -120,3 +120,27 @@ export interface BookingType {
   paymentIntent: string;
   isCompleted: boolean;
 }
+
+export interface FlightType {
+  id: number;
+  name: string;
+  logo: string;
+  from: string;
+  to: string;
+  departureTime: string;
+  arrivalTime: string;
+  duration: string;
+  scrappedOn: string;
+  price: number;
+  jobId: number;
+}
+
+export interface HotelType {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  jobId: number;
+  location: number;
+  scrappedOn: string;
+}
