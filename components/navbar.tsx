@@ -157,12 +157,12 @@ const Navbar = () => {
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator className="bg-black" />
                   <DropdownMenuItem>
-                    <SignInButton mode="modal">
+                    <Link href="/auth/sign-in">
                       <div className="flex flex-row">
                         <LogIn className="w-5 h-5 mr-1" />
                         Log In
                       </div>
-                    </SignInButton>
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

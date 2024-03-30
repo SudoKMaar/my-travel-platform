@@ -10,13 +10,13 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { IoPricetag } from "react-icons/io5";
+import axios from "axios";
 import { Tab, Tabs } from "@nextui-org/react";
 import { USER_API_ROUTES } from "@/routes";
 import { removeHtmlTags } from "@/lib/remove-html-tags";
 import { useAppStore } from "@/store";
 import { TripType } from "@/index";
 import { toast } from "@/components/ui/use-toast";
-import axios from "axios";
 import Images from "@/components/trip-image";
 import Iteniary from "@/components/trip-itenary";
 import { Button } from "@/components/ui/button";
@@ -87,6 +87,16 @@ const Trip = ({ params: { tripId } }: { params: { tripId: string } }) => {
 
   const bookTrip = async () => {
     const isoDate = date.toISOString();
+    const response = await axios.post(USER_API_ROUTES.CREATE_BOOKING, {
+      bookingId: tripData?.id,
+      bookingType: "trips",
+      userId: userInfo?.id,
+      taxes: 3300,
+      date: isoDate,
+    });
+    if (response.data.client_secret) {
+      router.push(`/checkout?client_secret=${response.data.client_secret}`);
+    }
   };
 
   return (

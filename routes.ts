@@ -10,6 +10,7 @@ export const USER_API_ROUTES = {
   GET_ALL_TRIPS: "/all-trips",
   GET_CITY_TRIPS: "/city-trips",
   TRIP_DATA: `${baseRoute}/trips`,
+  CREATE_BOOKING: `${baseRoute}/booking`,
 };
 
 export const AUTH_API_ROUTES = {
