@@ -83,3 +83,13 @@ model Flights {
   price         Int
   jobId         String
 }
+
+model Hotels {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  image      String
+  price      Int
+  jobId      String
+  location   String
+  scrappedOn DateTime @default(now())
+}

@@ -16,6 +16,8 @@ export async function POST(request: Request) {
         bookingDetails = await prisma.trips.findUnique({
           where: { id: bookingId },
         });
+        //@ts-ignore
+        booking.name = trip ? trip.name : null;
         break;
       case "flights":
         const flight = await prisma.flights.findUnique({
@@ -23,6 +25,13 @@ export async function POST(request: Request) {
         });
         // @ts-ignore
         booking.name = flight ? flight.name : null;
+        break;
+      case "hotels":
+        const hotel = await prisma.hotels.findUnique({
+          where: { id: bookingId },
+        });
+        //@ts-ignore
+        booking.name = hotel ? hotel.name : null;
         break;
     }
     if (bookingDetails) {

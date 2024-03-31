@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { startLocationScraping } from "@/scrapper/location-scrapping";
 import { startPackageScraping } from "@/scrapper/package-scrapping";
 import { startFlightScraping } from "@/scrapper/flights-scraping";
+import { startHotelScraping } from "@/scrapper/hotels-scrapping";
 const SBR_WS_ENDPOINT = process.env.SBR_WS_ENDPOINT;
 
 export async function register() {
@@ -93,6 +94,38 @@ export async function register() {
                 },
               });
             }
+          } else if (job.data.jobType.type === "hotels") {
+            console.log("Connected! Navigating to " + job.data.url);
+            await page.goto(job.data.url, { timeout: 120000 });
+            console.log("Navigated! Scraping page content...");
+            const hotels = await startHotelScraping(
+              page,
+              browser,
+              job.data.location
+            );
+
+            console.log(`Scraping Complete, ${hotels.length} hotels found.`);
+
+            await prisma.jobs.update({
+              where: { id: job.data.id },
+              data: { isComplete: true, status: "complete" },
+            });
+
+            console.log("Job Marked as complete.");
+            console.log("Starting Loop for Hotels");
+            for (const hotel of hotels) {
+              await prisma.hotels.create({
+                data: {
+                  name: hotel.title,
+                  image: hotel.photo,
+                  price: hotel.price,
+                  jobId: job.data.id,
+                  location: job.data.location.toLowerCase(),
+                },
+              });
+              console.log(`${hotel.title} inserted in DB.`);
+            }
+            console.log("COMPLETE.");
           }
         } catch (error) {
           console.log(error);
