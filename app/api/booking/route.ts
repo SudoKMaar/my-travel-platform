@@ -17,6 +17,13 @@ export async function POST(request: Request) {
           where: { id: bookingId },
         });
         break;
+      case "flights":
+        const flight = await prisma.flights.findUnique({
+          where: { id: bookingId },
+        });
+        // @ts-ignore
+        booking.name = flight ? flight.name : null;
+        break;
     }
     if (bookingDetails) {
       const paymentIntent = await stripe.paymentIntents.create({

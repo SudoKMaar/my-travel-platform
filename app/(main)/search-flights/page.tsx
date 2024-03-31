@@ -117,7 +117,7 @@ const SearchFlights = () => {
                 Explore the exotic world.
               </h3>
             </div>
-            <div className="grid grid-cols-3 items-center justify-center  px-10  gap-5">
+            <div className="grid grid-cols-3 items-center justify-center px-2 sm:px-10 gap-2 sm:gap-3 md:gap-5">
               <div className="relative">
                 <Input
                   className="text-white placeholder:text-white relative"

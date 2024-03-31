@@ -1,23 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { decodeJwt, jwtVerify } from "jose";
 
 export async function GET(request: NextRequest) {
-//   console.log("in me");
+  //   console.log("in me");
   const secret = new TextEncoder().encode(process.env.JWT_KEY as string);
   try {
     const token = request.cookies.get("access_token");
     // console.log("in token", token);
     if (token) {
       if (!jwtVerify(token?.value, secret)) {
+        cookies().delete("access_token");
         return NextResponse.redirect(new URL("/auth/sign-in", request.url));
       }
       const { userId, isAdmin } = decodeJwt(token.value);
-    //   console.log({ userId, isAdmin });
+      //   console.log({ userId, isAdmin });
       if (!isAdmin) {
         const user = await prisma.user.findUnique({
-          where: { id: (userId as string) },
+          where: { id: userId as string },
         });
         if (user) {
           return NextResponse.json(
