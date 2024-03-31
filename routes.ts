@@ -16,6 +16,7 @@ export const USER_API_ROUTES = {
   FLIGHT_SCRAPE_STATUS: "/flights/scrape-status",
   HOTELS_SCRAPE: "/hotels/scrape",
   HOTELS_SCRAPE_STATUS: "/hotels/scrape-status",
+  GET_ALL_HOTELS: "/all-hotels",
 };
 
 export const AUTH_API_ROUTES = {
