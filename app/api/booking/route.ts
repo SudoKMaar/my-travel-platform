@@ -5,6 +5,60 @@ import prisma from "@/lib/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_KEY || "");
 
+export async function GET() {
+  try {
+    const bookings = await prisma.bookings.findMany({});
+    for (const booking of bookings) {
+      // @ts-ignore
+      delete booking.paymentIntent;
+      switch (booking.bookingType) {
+        case "hotels":
+          const hotel = await prisma.hotels.findUnique({
+            where: { id: booking.bookingTypeId },
+          });
+          // @ts-ignore
+          booking.name = hotel ? hotel.name : null;
+          break;
+        case "trips":
+          const trip = await prisma.trips.findUnique({
+            where: { id: booking.bookingTypeId },
+          });
+          // @ts-ignore
+          booking.name = trip ? trip.name : null;
+          break;
+        case "flights":
+          const flight = await prisma.flights.findUnique({
+            where: { id: booking.bookingTypeId },
+          });
+          // @ts-ignore
+          booking.name = flight ? flight.name : null;
+          break;
+        default:
+          // @ts-ignore
+          booking.name = null;
+      }
+    }
+
+    return NextResponse.json(
+      {
+        bookings,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return NextResponse.json({ message: error.message }, { status: 400 });
+      }
+      return NextResponse.json({ message: error.message }, { status: 400 });
+    }
+  }
+  return NextResponse.json(
+    { message: "An unexpected error occurred." },
+    { status: 500 }
+  );
+}
+
 export async function POST(request: Request) {
   try {
     const { bookingId, bookingType, userId, taxes, date } =
