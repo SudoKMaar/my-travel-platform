@@ -70,15 +70,21 @@ const Footer = () => {
             Get in Touch
           </h3>
           <ul className="flex gap-5 mt-5 flex-row md:flex-col">
-            <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
-              <FaFacebookF />
-            </li>
-            <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
-              <FaInstagram />
-            </li>
-            <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
-              <FaLinkedinIn />
-            </li>
+            <Link href="https://www.facebook.com/AbhishekKMaar">
+              <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
+                <FaFacebookF />
+              </li>
+            </Link>
+            <Link href="https://www.instagram.com/KMaar44">
+              <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
+                <FaInstagram />
+              </li>
+            </Link>
+            <Link href="https://www.linkedin.com/in/AbhishekKMaar/">
+              <li className="bg-rose-500 bg-opacity-10 rounded-lg text-rose-500 text-3xl p-3 cursor-pointer hover:bg-opacity-30 transition-all duration-300">
+                <FaLinkedinIn />
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

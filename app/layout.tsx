@@ -7,6 +7,7 @@ import AppProtector from "@/components/app-protector";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN}`),
   title: {
     default: "My Travel Platform",
     template: "%s - My Travel Platform",

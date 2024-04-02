@@ -24,7 +24,7 @@ export async function register() {
           const page = await browser.newPage();
           if (job.data.jobType.type === "location") {
             console.log("Connected! Navigating to " + job.data.url);
-            await page.goto(job.data.url);
+            await page.goto(job.data.url, { timeout: 120000 });
             console.log("Navigated! Scraping page content...");
             const packages = await startLocationScraping(page);
             await prisma.jobs.update({
@@ -69,7 +69,7 @@ export async function register() {
           } else if (job.data.jobType.type === "flight") {
             console.log("in flight scraping");
             console.log("Connected! Navigating to " + job.data.url);
-            await page.goto(job.data.url);
+            await page.goto(job.data.url, { timeout: 120000 });
             console.log("Navigated! Scraping page content...");
             const flights = await startFlightScraping(page);
 
