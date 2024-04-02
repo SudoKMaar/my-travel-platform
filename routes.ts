@@ -4,6 +4,8 @@ export const ADMIN_API_ROUTES = {
   SIGNIN: `${baseRoute}/admin/sign-in`,
   CREATE_JOB: `${baseRoute}/admin/create-job`,
   JOB_DETAILS: `${baseRoute}/admin/job-details`,
+  DASHBOARD_SCRAPING_CHART_DATA: "/admin/dashboard/scraping-chart-data",
+  DASHBOARD_METRICS: "/admin/dashboard/metrics",
 };
 
 export const USER_API_ROUTES = {
