@@ -6,12 +6,12 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const secret = new TextEncoder().encode(process.env.JWT_KEY as string);
   try {
-    if (!request.url.includes("/login")) {
+    if (!request.url.includes("/sign-in")) {
       const token = request.cookies.get("access_token");
       if (token) {
         if (!jwtVerify(token?.value, secret)) {
           return NextResponse.redirect(
-            new URL("/login?msg='JWT Expired.'", request.url)
+            new URL("/sign-in?msg='JWT Expired.'", request.url)
           );
         }
         const { isAdmin } = decodeJwt(token.value);
@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
           );
         }
       } else {
-        return NextResponse.redirect(new URL("/admin/login", request.url));
+        return NextResponse.redirect(new URL("/admin/sign-in", request.url));
       }
     } else {
       return NextResponse.next();
@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   } catch (err) {
     if (err instanceof Error && err.name === "JWTExpired") {
       return NextResponse.redirect(
-        new URL("/login?msg='Jwt Expired'", request.url)
+        new URL("/sign-in?msg='Jwt Expired'", request.url)
       );
     }
     return NextResponse.json(
